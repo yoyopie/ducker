@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     url(r'^index/$', 'web_site.views.index', name='index'),
     url(r'^login/$', 'auth_models.views.login', name='login'),
     url(r'^logout/$', 'auth_models.views.logout', name='logout'),
+    url(r'^containers/$', 'web_site.views.containers'),
 )

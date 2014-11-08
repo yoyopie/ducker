@@ -15,7 +15,7 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/bootstrap-responsive.min.css' %}" rel="stylesheet" />
     
-    <link href="http://fonts.useso.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" />
+    <!--link href="http://fonts.useso.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" /-->
     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
     
     <link href="{% static 'css/adminia.css' %}" rel="stylesheet" /> 
@@ -89,9 +89,10 @@
 	
 </div> <!-- /navbar -->
 
+{% endblock body %}
 
 
-
+{% block content %}
 <div id="content">
 	
 	<div class="container">
@@ -125,23 +126,25 @@
 				<hr />
 				
 				<ul id="main-nav" class="nav nav-tabs nav-stacked">
-					
-					<li class="active">
+                    {% block images %}
+					<li>
+                    {% endblock images %}
 						<a href="/index/">
 							<i class="icon-home"></i>
 							Images	
 						</a>
 					</li>
-					
+				    {% block containers %}	
 					<li>
-						<a href="./faq.html">
+                    {% endblock containers %}
+						<a href="/containers/">
 							<i class="icon-pushpin"></i>
-							FAQ	
+							COntainers	
 						</a>
 					</li>
 					
 					<li>
-						<a href="./plans.html">
+						<a href="#">
 							<i class="icon-th-list"></i>
 							Pricing Plans		
 						</a>
@@ -191,58 +194,9 @@
 			
 			
 			<div class="span9">
+				
+				
 			   {% block showsome %}	
-				<h1 class="page-title">
-					<i class="icon-home"></i>
-					Dashboard					
-				</h1>
-				
-				<div class="stat-container">
-										
-					<div class="stat-holder">						
-						<div class="stat">							
-							<span>564</span>							
-							Completed Sales							
-						</div> <!-- /stat -->						
-					</div> <!-- /stat-holder -->
-					
-					<div class="stat-holder">						
-						<div class="stat">							
-							<span>423</span>							
-							Pending Sales							
-						</div> <!-- /stat -->						
-					</div> <!-- /stat-holder -->
-					
-					<div class="stat-holder">						
-						<div class="stat">							
-							<span>96</span>							
-							Returned Sales							
-						</div> <!-- /stat -->						
-					</div> <!-- /stat-holder -->
-					
-					<div class="stat-holder">						
-						<div class="stat">							
-							<span>2</span>							
-							Chargebacks							
-						</div> <!-- /stat -->						
-					</div> <!-- /stat-holder -->
-					
-				</div> <!-- /stat-container -->
-				
-				<div class="widget">
-										
-					<div class="widget-header">
-						<i class="icon-signal"></i>
-						<h3>Area Chart</h3>
-					</div> <!-- /widget-header -->
-														
-					<div class="widget-content">					
-						<div id="bar-chart" class="chart-holder"></div> <!-- /bar-chart -->				
-					</div> <!-- /widget-content -->
-					
-				</div> <!-- /widget -->
-				
-				
 				
 				<div class="widget widget-table">
 										
@@ -394,54 +348,18 @@
 				</div> <!-- /widget -->
 				
 				
-				
-				
-				<div class="row">
-					
-					<div class="span5">
-									
-						<div class="widget">
-							
-							<div class="widget-header">
-								<h3>5 Column</h3>
-							</div> <!-- /widget-header -->
-																
-							<div class="widget-content">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-							</div> <!-- /widget-content -->
-							
-						</div> <!-- /widget -->
-						
-					</div> <!-- /span5 -->
-		
-					<div class="span4">
-						
-						<div class="widget">
-							
-							<div class="widget-header">
-								<h3>4 Column</h3>
-							</div> <!-- /widget-header -->
-																
-							<div class="widget-content">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-							</div> <!-- /widget-content -->
-							
-						</div> <!-- /widget -->
-					</div> <!-- /span4 -->
-					
-				</div> <!-- /row -->
-				
 			</div> <!-- /span9 -->
-			
 			
 		</div> <!-- /row -->
 		
 	</div> <!-- /container -->
 	
 </div> <!-- /content -->
-  {% endblock showsome %}					
 	
-<div id="footer">
+  {% endblock showsome %}					
+  {% endblock content %}
+  {% block footer %}
+<!--div id="footer">
 	
 	<div class="container">				
 		<hr />
@@ -469,4 +387,4 @@
 
   </body>
 </html>
-{% endblock body %}
+{% endblock footer %}

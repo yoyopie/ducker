@@ -1,0 +1,48 @@
+{% extends 'base.html'%}
+{% block title %}Show container{% endblock title %}
+{% block showsome %}
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Image</th>
+            <th>Names</th>
+            <th>Status</th>
+            <th>CIdontral</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for container in containers %}
+            <tr>
+            <td>{{ container.Id | slice:"4" }}</td>
+            <td>{{ container.Image }}</td>
+            <td>{{ container.Names }}</td>
+            <td>{{ container.Status }}</td>
+            <td>
+                <!--li class="dropdown">
+               <a data-toggle="dropdown" href="#">Contral</a>
+               <ul class="dropdown-menu">
+                   <li><a href="#">Start</a></li>
+                   <li><a href="#">Stop</a></li>
+               </ul-->
+                <div class="btn-group">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        Action
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <div class="btn-group btn-group-vertical">
+                          <button class="btn">1</button>
+                          <button class="btn">2</button>
+                          <button class="btn">3</button>
+                        </div>
+                    </ul>
+                </div>
+            </td>
+            </tr>
+            {% endfor %}
+    </tbody>
+    {% block containers %}
+    <li class="active"> 
+    {% endblock containers %}
+{% endblock showsome %}

@@ -16,12 +16,15 @@
             {% for image in images %}
             <tr>
             <td>{{ image.Created }}</td>
-            <td>{{ image.Id }}</td>
-            <td>{{ image.ParentId }}</td>
+            <td>{{ image.Id | slice:"4"}}</td>
+            <td>{{ image.ParentId | slice:"4"}}</td>
             <td>{{ image.RepoTags }}</td>
             <td>{{ image.Size }}</td>
             <td>{{ image.VirtualSize }}</td>
             </tr>
             {% endfor %}
     </tbody>
+    {% block images %}
+    <li class="active"> 
+    {% endblock images%}
 {% endblock showsome %}
