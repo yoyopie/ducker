@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Images(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=110)
 
 
 class Container(models.Model):

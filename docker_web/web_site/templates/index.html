@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+{% block title %}Show images{% endblock title %}
+{% block showsome %}
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Created</th>
+            <th>Id</th>
+            <th>ParentId</th>
+            <th>RepoTags</th>
+            <th>Size</th>
+            <th>VirtualSize</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for image in images %}
+            <tr>
+            <td>{{ image.Created }}</td>
+            <td>{{ image.Id }}</td>
+            <td>{{ image.ParentId }}</td>
+            <td>{{ image.RepoTags }}</td>
+            <td>{{ image.Size }}</td>
+            <td>{{ image.VirtualSize }}</td>
+            </tr>
+            {% endfor %}
+    </tbody>
+{% endblock showsome %}
