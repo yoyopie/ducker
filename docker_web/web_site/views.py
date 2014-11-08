@@ -16,7 +16,16 @@ def index(request):
 
 
 def containers(request):
-    c = docker.Client(base_url='unix://var/run/docker.sock', version='1.9', timeout=10)
+    c = docker.Client(base_url='unix://var/run/docker.sock')
+    if request.method == "POST":
+        containerid = request.POST.get('containerid', '')
+        action = request.POST.get('submit', '')
+        if action == 'start':
+            c.start(containerid)
+        elif action == 'stop':
+            c.stop(containerid)
+        else:
+            c.restart(containerid)
     containers = c.containers(all=True)
     context = {
         'containers': containers,

@@ -13,6 +13,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />    
     
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+
     <link href="{% static 'css/bootstrap-responsive.min.css' %}" rel="stylesheet" />
     
     <!--link href="http://fonts.useso.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" /-->
@@ -380,11 +381,10 @@
 <script src="{% static 'js/jquery.flot.pie.js' %}"></script>
 <script src="{% static 'js/jquery.flot.orderBars.js' %}"></script>
 <script src="{% static 'js/jquery.flot.resize.js' %}"></script>
-
-
 <script src="{% static 'js/bootstrap.js' %}"></script>
 <script src="{% static 'js/charts/bar.js' %}"></script>
-
+{% block javascript %}
+{% endblock javascript %}
   </body>
 </html>
 {% endblock footer %}

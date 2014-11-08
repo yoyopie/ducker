@@ -32,9 +32,13 @@
                     </a>
                     <ul class="dropdown-menu">
                         <div class="btn-group btn-group-vertical">
-                          <button class="btn">1</button>
-                          <button class="btn">2</button>
-                          <button class="btn">3</button>
+                            <form method="POST">
+                            <input type="text" name="containerid" value={{container.Id}} style="display:none"/>
+                            <input value="start" name="submit" type="submit" class="btn del" />
+                            <input value="stop" name="submit" type="submit" class="btn del"/>
+                            <input value="restart" name="submit" type="submit" class="btn del"/>
+                            <input value="delete" name="submit" type="submit" class="btn del"/>
+                            </form>
                         </div>
                     </ul>
                 </div>
@@ -46,3 +50,28 @@
     <li class="active"> 
     {% endblock containers %}
 {% endblock showsome %}
+{% block javascript %}
+<script type="javascript">
+    $(document).ready(function(){
+        $(.del).click(function(){
+            var elem = $(this).closest(".del"); 
+            $.confirm({
+                'title': 'Delet Confirmation',
+                'message': 'Are you sure?',
+                'buttons':{
+                    'yes':{
+                      'class': 'blue',
+                      'action': function(){
+                          elem.slideUp();
+                      }
+                    }
+                    'No':{
+                    'class': 'gray',
+                    'action': function(){}
+                    }
+                },
+                });
+            });
+            });
+</script>
+{% endblock javascript%}
