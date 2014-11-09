@@ -61,7 +61,7 @@
 					<li class="dropdown">
                     {% block showuser %}
 						<a data-toggle="dropdown" class="dropdown-toggle " href="#">
-							Rod Howard <b class="caret"></b>							
+							{{user}}<b class="caret"></b>
 						</a>
                         {% endblock showuser %}
 						<ul class="dropdown-menu">
@@ -110,7 +110,7 @@
 				
 					<div class="account-details">
 					
-						<span class="account-name">Rod Howard</span>
+						<span class="account-name">{{user}}</span>
 						
 						<span class="account-role">Administrator</span>
 						
