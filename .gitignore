@@ -12,3 +12,4 @@ pylint.txt
 reports/
 .environment_version
 .venv
+db.sqlite3
