@@ -69,9 +69,14 @@ def containers(request):
 def host(request):
     hostform = forms.HostForm()
     if request.method == "POST":
+        action = request.POST.get('submit', '')
+        delhostip = request.POST.get('delhostip', '')
         hostform = forms.HostForm(request.POST)
-        if hostform.is_valid():
+        if hostform.is_valid() and action == "Add":
             hostform.save()
+        if action == "Delete":
+            hostobjects = models.Hostinfo.objects.filter(ip=delhostip)
+            hostobjects.delete()
     host = models.Hostinfo.objects.all()
     context = {
         'hostform': hostform,

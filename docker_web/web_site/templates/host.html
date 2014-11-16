@@ -8,18 +8,25 @@
 <div style="display:none">
     <form id="addhostform" method="POST">
         {{hostform.as_p}}
-        <input type="submit" value="Add"/>
-        <input type="submit" value="Cancel"/>
+        <input type="submit" name="submit" value="Add"/>
+        <input id="buttonclose" type="button" value="Close"/>
     </form>
 </div>
 {% endblock widget-content %}
 {% block showsome %}
 <table class="table table-striped table-bordered">
     <tr>
-        <th>Hostname</th><th>HostVserion</th><th>HostIp</th><th>Memory</th>
+        <th>Hostname</th><th>HostVserion</th><th>HostIp</th><th>Memory</th><th>Delete</th>
     </tr>
     {% for ht in host %}
-    <tr><td>{{ht.name}}</td><td>{{ht.version}}</td><td>{{ht.ip}}</td><td>{{ht.memory}}</td></tr>
+    <tr><td>{{ht.name}}</td><td>{{ht.version}}</td><td>{{ht.ip}}</td><td>{{ht.memory}}</td>
+        <td>
+            <form method="POST">
+            <input type="text" name="delhostip" value="{{ht.ip}}" style="display:none" />
+            <input type="submit" name="submit" value="Delete" class="btn del" />
+            </form>
+        </td>
+    </tr>
     {% endfor %}
 </table>
 {% endblock showsome %}
@@ -31,6 +38,9 @@
     $(function(){
             $("#addhost").click(function(){
                 $.blockUI({message:$("#addhostform")});
+                });
+            $("#buttonclose").click(function(){
+                $.unblockUI();
                 });
             });
 </script>
