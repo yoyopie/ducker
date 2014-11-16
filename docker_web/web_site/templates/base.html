@@ -213,7 +213,9 @@
             <div class="widget">
 			   <div class="widget-content">
                {% block widget-content %}
-               <select name="host" id="host">
+               {% block create-container %}
+               {% endblock create-container %}    
+               <select name="host" id="host" style="float:right;">
                {% for ht in host %}
                <option value="{{ht.ip}}">{{ht.name}}</option>
                {% endfor %}
