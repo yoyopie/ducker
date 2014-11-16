@@ -4,6 +4,7 @@ import models
 # Register your models here.
 admin.site.unregister(models.User)
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Hostinfo)
 
 
 class UserProfileInline(admin.StackedInline):

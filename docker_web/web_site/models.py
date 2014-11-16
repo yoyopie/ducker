@@ -11,6 +11,13 @@ class Container(models.Model):
     name = models.CharField(max_length=100)
 
 
+class Hostinfo(models.Model):
+    name = models.CharField(max_length=100)
+    version = models.CharField(max_length=100)
+    ip = models.CharField(max_length=20)
+    memory = models.CharField(max_length=20)
+
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     images = models.ManyToManyField(Images)

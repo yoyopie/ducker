@@ -1,6 +1,8 @@
 {% extends 'base.html'%}
 {% block title %}Show container{% endblock title %}
+{% block page-title %}Containers{% endblock page-title %}
 {% block showsome %}
+<div id="hostip">
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -26,11 +28,11 @@
                    <li><a href="#">Stop</a></li>
                </ul-->
                 <div class="btn-group">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                    <!--a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                         Action
                         <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
+                    </a-->
+                    <!--ul class="dropdown-menu">
                         <div class="btn-group btn-group-vertical">
                             <form method="POST">
                             <input type="text" name="containerid" value={{container.Id}} style="display:none"/>
@@ -40,38 +42,51 @@
                             <input value="delete" name="submit" type="submit" class="btn del"/>
                             </form>
                         </div>
-                    </ul>
+                    </ul-->
+                    <!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    Action <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+      <form method="POST">
+      <li><input type="text" name="containerid" value={{container.Id}} style="display:none"/></li>
+      <li><input value="start" name="submit" type="submit" class="btn del" style="width:100%;"/></li>
+      <li><input value="stop" name="submit" type="submit" class="btn del" style="width:100%;"/></li>
+      <li><input value="restart" name="submit" type="submit" class="btn del" style="width:100%;"/></li>
+      <li><input value="delete" name="submit" type="submit" class="btn del" style="width:100%;"/></li>
+      </form>
+  </ul>
+</div>
                 </div>
             </td>
             </tr>
             {% endfor %}
     </tbody>
+</table>
+</div>
 {% endblock showsome %}
     {% block containers %}
     <li class="active">
     {% endblock containers %}
 {% block javascript %}
-<script type="javascript">
+<script type="text/javascript">
     $(document).ready(function(){
-        $(.del).click(function(){
-            var elem = $(this).closest(".del"); 
-            $.confirm({
-                'title': 'Delet Confirmation',
-                'message': 'Are you sure?',
-                'buttons':{
-                    'yes':{
-                      'class': 'blue',
-                      'action': function(){
-                          elem.slideUp();
-                      }
-                    }
-                    'No':{
-                    'class': 'gray',
-                    'action': function(){}
-                    }
-                },
+            $("#host").change(function(){
+                var $hostip=$("#host").val();
+                alert($hostip)
+                $.ajax({
+                    url:'/ajaxcontainers/',
+                    type:'get',
+                    data:{
+                         'hostip':$hostip
+                    },
+                    success:function(data){
+                           $("#hostip").html(data);
+                    },
+                    });
                 });
             });
-            });
+</script>
 </script>
 {% endblock javascript%}
