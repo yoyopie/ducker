@@ -2,8 +2,8 @@
 {% block title %}Show container{% endblock title %}
 {% block page-title %}Containers{% endblock page-title %}
 {% block create-container %}
-<div style="float:left;">                     
-     <button id="Create Containers">Create</button>                                                                                     
+<div style="float:left;">
+     <button id="CreateContainers">Create</button>
 </div>
     <div style="display:none">
     <form id="addhostform" method="POST">
@@ -99,7 +99,9 @@
                     },
                     });
                 });
+            $("#CreateContainers").click(function(){
+                $.blockUI({message:$("#addhostform")});
+                });
             });
-</script>
 </script>
 {% endblock javascript%}
