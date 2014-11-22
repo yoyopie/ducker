@@ -10,7 +10,13 @@ import forms
 
 @login_required
 def index(request):
-    c = docker.Client(base_url='unix://var/run/docker.sock', version='1.9', timeout=10)
+    hostip = ''
+    errorinfo = ''
+    try:
+        hostip = models.Hostinfo.objects.all()[0].ip
+    except:
+        errorinfo = 'No host in models,please add host!'
+    c = docker.Client(base_url='tcp://' + hostip + ':2375', timeout=10)
     images = c.images()
     user = request.user
     host = models.Hostinfo.objects.all()
@@ -18,6 +24,7 @@ def index(request):
         'images': images,
         'user': user,
         'host': host,
+        'errorinfo': errorinfo,
     }
     return render_to_response('index.html', context)
 
@@ -44,7 +51,13 @@ def ajaxcontainers(request):
 
 @login_required
 def containers(request):
-    c = docker.Client(base_url='unix://var/run/docker.sock')
+    hostip = ''
+    errorinfo = ''
+    try:
+        hostip = models.Hostinfo.objects.all()[0].ip
+    except:
+        errorinfo = 'No host in models,please add host!'
+    c = docker.Client(base_url='tcp://' + hostip + ':2375', timeout=10)
     if request.method == "POST":
         containerid = request.POST.get('containerid', '')
         action = request.POST.get('submit', '')
@@ -61,6 +74,7 @@ def containers(request):
         'containers': containers,
         'user': user,
         'host': host,
+        'errorinfo': errorinfo,
     }
     return render_to_response('containers.html', context)
 

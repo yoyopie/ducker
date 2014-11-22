@@ -1,6 +1,9 @@
 {% extends 'base.html'%}
 {% block title %}Show images{% endblock title %}
 {% block page-title %}Images{% endblock page-title %}
+{% block create-container %}
+{{errorinfo}}
+{% endblock create-container %}
 {% block showsome %}
 <div id="hostip">
 <table class="table table-striped table-bordered">
@@ -37,7 +40,6 @@
     $(document).ready(function(){
             $("#host").change(function(){
                 var $hostip=$("#host").val();
-                alert($hostip)
                 $.ajax({
                     url:'/ajaximages/',
                     type:'get',
