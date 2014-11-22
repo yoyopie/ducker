@@ -217,7 +217,7 @@
                {% endblock create-container %}    
                <select name="host" id="host" style="float:right;">
                {% for ht in host %}
-               <option value="{{ht.ip}}">{{ht.name}}</option>
+               <option value="{{ht.ip}}"{% if hostip = ht.ip %}selected="selected"{% endif %}>{{ht.name}}</option>
                {% endfor %}
                </select>
                {% endblock widget-content %}

@@ -7,10 +7,17 @@
 </div>
     <div style="display:none">
     <form id="addhostform" method="POST">
-        <input type="text" value="Image"/>
-        <input type="text" value="port"/>
-        <input type="submit" value="Add"/>
-        <input type="submit" value="Cancel"/>
+        <label>name</label><input type="text" name="name"></input>
+        <label>port</label><input type="text" name="port"></input>
+        <label>image</label>
+        <select name="imageid">
+        {% for image in images %}
+        <option value="{{ image.RepoTags | first }}">{{ image.RepoTags | first }}</option>
+        {% endfor %}
+        </select>
+        <br/>
+        <input type="submit" name="submit1" value="Create" />
+        <input type="button" id="buttonclose" value="Close" />
     </form>
 </div>
 {% endblock create-container %}
@@ -34,40 +41,20 @@
             <td>{{ container.Names | first | slice:"1:" }}</td>
             <td>{{ container.Status }}</td>
             <td>
-                <!--li class="dropdown">
-               <a data-toggle="dropdown" href="#">Contral</a>
-               <ul class="dropdown-menu">
-                   <li><a href="#">Start</a></li>
-                   <li><a href="#">Stop</a></li>
-               </ul-->
-                <div class="btn-group">
-                    <!--a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                        Action
-                        <span class="caret"></span>
-                    </a-->
-                    <!--ul class="dropdown-menu">
-                        <div class="btn-group btn-group-vertical">
-                            <form method="POST">
-                            <input type="text" name="containerid" value={{container.Id}} style="display:none"/>
-                            <input value="start" name="submit" type="submit" class="btn del" />
-                            <input value="stop" name="submit" type="submit" class="btn del"/>
-                            <input value="restart" name="submit" type="submit" class="btn del"/>
-                            <input value="delete" name="submit" type="submit" class="btn del"/>
-                            </form>
-                        </div>
-                    </ul-->
-                    <!-- Single button -->
 <div class="btn-group">
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     Action <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" role="menu">
       <form method="POST">
-      <li><input type="text" name="containerid" value={{container.Id}} style="display:none"/></li>
+      <li><input type="text" name="containerid" value="{{container.Id}}" style="display:none"/></li>
+      <li><input type="text" name="controlhost" value="{{hostip}}" style="display:none"/></li>
       <li><input value="start" name="submit" type="submit" class="btn del" style="width:100%;"/></li>
       <li><input value="stop" name="submit" type="submit" class="btn del" style="width:100%;"/></li>
       <li><input value="restart" name="submit" type="submit" class="btn del" style="width:100%;"/></li>
       <li><input value="delete" name="submit" type="submit" class="btn del" style="width:100%;"/></li>
+      <!--li><input value="console" name="submit" target="_blank" type="submit" class="btn del" style="width:100%;"/></li-->
+      <li><a href="https://{{hostip}}:5400" class="btn del" target="_blank" style="width:100%;">console</a></li>
       </form>
   </ul>
 </div>
@@ -85,7 +72,7 @@
 {% block javascript %}
 <script type="text/javascript">
     $(document).ready(function(){
-            $("#host").change(function(){
+            /*$("#host").change(function(){
                 var $hostip=$("#host").val();
                 $.ajax({
                     url:'/ajaxcontainers/',
@@ -97,10 +84,18 @@
                            $("#hostip").html(data);
                     },
                     });
+                });*/
+            $("#host").change(function(){
+                var $host = $("#host").find("option:selected").text();
+                var $hostip = $("#host").val()
+                window.location.href = "/containers/?hostip=" + $hostip
                 });
             $("#CreateContainers").click(function(){
                 $.blockUI({message:$("#addhostform")});
                 });
+            $("#buttonclose").click(function(){
+                    $.unblockUI();
+                    });
             });
 </script>
 {% endblock javascript%}

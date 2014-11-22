@@ -9,6 +9,9 @@ class Images(models.Model):
 
 class Container(models.Model):
     name = models.CharField(max_length=100)
+    conid = models.CharField(max_length=100)
+    image = models.CharField(max_length=100)
+    port = models.CharField(max_length=100)
 
 
 class Hostinfo(models.Model):
