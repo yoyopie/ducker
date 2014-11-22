@@ -17,6 +17,9 @@ class Hostinfo(models.Model):
     ip = models.CharField(max_length=20)
     memory = models.CharField(max_length=20)
 
+    def __unicode__(self):
+        return self.name
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)

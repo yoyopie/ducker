@@ -87,7 +87,6 @@
     $(document).ready(function(){
             $("#host").change(function(){
                 var $hostip=$("#host").val();
-                alert($hostip)
                 $.ajax({
                     url:'/ajaxcontainers/',
                     type:'get',
