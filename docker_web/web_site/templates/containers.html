@@ -1,9 +1,10 @@
 {% extends 'base.html'%}
+{% load ducker_extras %}
 {% block title %}Show container{% endblock title %}
 {% block page-title %}Containers{% endblock page-title %}
 {% block create-container %}
 <div style="float:left;">
-     <button id="CreateContainers">Create</button>
+     <button id="CreateContainers" class="btn">Create</button>
 </div>
     <div style="display:none">
     <form id="addhostform" method="POST">
@@ -47,14 +48,15 @@
   </button>
   <ul class="dropdown-menu" role="menu">
       <form method="POST">
-      <li><input type="text" name="containerid" value="{{container.Id}}" style="display:none"/></li>
-      <li><input type="text" name="controlhost" value="{{hostip}}" style="display:none"/></li>
+      <li><input type="text" name="containerid" value="{{ container.Ports | find_port }}" style="display:none"/></li>
+      <li><input type="text" name="containerid" value="{{ container.Id }}" style="display:none"/></li>
+      <li><input type="text" name="controlhost" value="{{ hostip }}" style="display:none"/></li>
       <li><input value="start" name="submit" type="submit" class="btn del" style="width:100%;"/></li>
       <li><input value="stop" name="submit" type="submit" class="btn del" style="width:100%;"/></li>
       <li><input value="restart" name="submit" type="submit" class="btn del" style="width:100%;"/></li>
       <li><input value="delete" name="submit" type="submit" class="btn del" style="width:100%;"/></li>
       <!--li><input value="console" name="submit" target="_blank" type="submit" class="btn del" style="width:100%;"/></li-->
-      <li><a href="https://{{hostip}}:5400" class="btn del" target="_blank" style="width:100%;">console</a></li>
+      <li><a href="https://{{hostip}}:{{container.Ports | find_port }}" class="btn del" target="_blank" style="width:100%;">console</a></li>
       </form>
   </ul>
 </div>

@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-#from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 import models
 import docker
@@ -72,8 +72,11 @@ def containers(request):
             #port = request.POST.get('port', '')
             imageid = request.POST.get('imageid', '')
             c.create_container(image=imageid, name=name)
-    images = c.images()
-    containers = c.containers(all=True)
+    try:
+        images = c.images()
+        containers = c.containers(all=True)
+    except:
+        return HttpResponseRedirect('/host/')
     user = request.user
     host = models.Hostinfo.objects.all()
     containerform = forms.ContainerForm()
