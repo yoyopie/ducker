@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^login/$', 'auth_models.views.login', name='login'),
     url(r'^logout/$', 'auth_models.views.logout', name='logout'),
     url(r'^containers/$', 'web_site.views.containers'),
-    url(r'^ajaxcontainers/$', 'web_site.views.ajaxcontainers'),
+    #url(r'^ajaxcontainers/$', 'web_site.views.ajaxcontainers'),
     url(r'^host/$', 'web_site.views.host'),
+    url(r'^checkhost/$', 'web_site.views.checkhost'),
 )

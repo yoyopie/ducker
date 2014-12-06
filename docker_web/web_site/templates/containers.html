@@ -39,7 +39,12 @@
             <tr>
             <td>{{ container.Id | slice:"4" }}</td>
             <td>{{ container.Image }}</td>
-            <td>{{ container.Names | first | slice:"1:" }}</td>
+            <td>{% if container.Names %}
+                {{ container.Names | first | slice:"1:" }}
+                {% else %}
+                {{ container.Names }}
+                {% endif %}
+            </td>
             <td>{{ container.Status }}</td>
             <td>
 <div class="btn-group">

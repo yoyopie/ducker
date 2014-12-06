@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 import models
 import docker
 import forms
+import os
 
 # Create your views here.
 
@@ -16,7 +17,10 @@ def index(request):
         hostip = models.Hostinfo.objects.all()[0].ip
     except:
         errorinfo = 'No host in models,please add host!'
-    c = docker.Client(base_url='tcp://' + hostip + ':2375', timeout=10)
+    if docker.client.utils.ping('http://' + hostip + ':2375/_ping'):
+        c = docker.Client(base_url='tcp://' + hostip + ':2375', timeout=10)
+    else:
+        c = docker.Client(base_url='tcp://127.0.0.1:2375', timeout=10)
     images = c.images()
     user = request.user
     host = models.Hostinfo.objects.all()
@@ -50,7 +54,10 @@ def containers(request):
             hostip = models.Hostinfo.objects.all()[0].ip
         except:
             errorinfo = 'No host in models,please add host!'
-    c = docker.Client(base_url='tcp://' + hostip + ':2375', timeout=10)
+    if docker.client.utils.ping('http://' + hostip + ':2375/_ping'):
+        c = docker.Client(base_url='tcp://' + hostip + ':2375', timeout=10)
+    else:
+        c = docker.Client(base_url='tcp://127.0.0.1:2375', timeout=10)
     if request.method == "POST":
         containerid = request.POST.get('containerid', '')
         action = request.POST.get('submit', '')
@@ -63,8 +70,6 @@ def containers(request):
         elif action == 'delete':
             c.stop(containerid)
             c.remove_container(containerid)
-        #elif action == 'console':
-        #    return HttpResponseRedirect('https://' + hostip + ':5400')
         elif action == 'restart':
             c.restart(containerid)
         if request.POST.get('submit1'):
@@ -110,3 +115,21 @@ def host(request):
         'host': host,
     }
     return render_to_response('host.html', context)
+
+
+@login_required
+def checkhost(request):
+    if request.method == "GET":
+        host = models.Hostinfo.objects.all()
+        for ht in host:
+            ping = docker.client.utils.ping('http://' + ht.ip + ':2375/_ping')
+            hostinfoobject = models.Hostinfo.objects.get(ip=ht.ip)
+            if ping:
+                hostinfoobject.islive = True
+            else:
+                hostinfoobject.islive = False
+            hostinfoobject.save()
+        context = {
+            'host': host,
+        }
+    return render_to_response('checkhost.html', context)
